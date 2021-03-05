@@ -50,3 +50,6 @@ for l in range(len(X)):
 import matplotlib.pyplot as plt
 plt.plot(R)
 plt.savefig('plot1.png')
+
+D = diag(A[0,0], A[1,1], A[2,2], A[3,3])
+print(D-0.5*A)
