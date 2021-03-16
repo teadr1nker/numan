@@ -12,8 +12,7 @@ C = diag([0.05, 0.03, 0.02, 0.04])
 
 A = D + 19*C
 print('Initial matrix:\n', A)
-print('Eigenvalues: ', linalg.eigvals(A))
-
-solve_with_rotation(A)
-y = (power(A))
-print(y[len(y)-1])
+print('Eigenvalues:\n', linalg.eigvals(A))
+print('Eingvectors:\n', linalg.eig(A)[1])
+#solve_with_rotation(A)
+power(A)

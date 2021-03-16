@@ -46,4 +46,7 @@ def power(A, N=50):
     for i in range(N):
         y.append(A*y[i])
 
-    return y
+    print('Power method:\n', y[len(y)-1])
+
+    lmb1 = y[len(y) - 1][0] / y[len(y) -2][0]
+    print('lmb1: ', lmb1)
