@@ -1,4 +1,4 @@
-from numpy import matrix, diag, copy
+from numpy import matrix, diag, copy, matmul
 import numpy as np
 import numpy.linalg as la
 
@@ -29,7 +29,7 @@ def solve_with_rotation(m):
         x[k, 0] = (m[k, -1] - m[k, k:n] * x[k:n, 0]) / m[k, k]
 
     # Display results
-    print(x)
+    print('Rotation method:\n', x)
 
 
 def is_singular(m):
@@ -44,9 +44,12 @@ def power(A, N=50):
     y = [matrix([[1],[1],[1],[1]])]
 
     for i in range(N):
-        y.append(A*y[i])
+        y1 = A*(y[i])
+        y.append(y1)
 
-    print('Power method:\n', y[len(y)-1])
+    yn = y[len(y)-1]
+    print('Power method:\n', yn / yn[yn.shape[0]-1])
 
-    lmb1 = y[len(y) - 1][0] / y[len(y) -2][0]
+    lmb1 = y[N][0] / y[N-1][0]
     print('lmb1: ', lmb1)
+    #print('ooo\n', A*yn - yn*lmb1)

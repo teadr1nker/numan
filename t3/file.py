@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 
-from numpy import matrix, diag, linalg
+from numpy import array, diag, linalg
 from solvers import solve_with_rotation, power
 
-D = matrix([[1.342, 0.432, -0.599, 0.202],
+D = array([[1.342, 0.432, -0.599, 0.202],
             [0.432, 1.342, 0.256, -0.599],
             [-0.599, 0.256, 1.342, 0.532],
             [0.202, -0.599, 0.532, 1.342]])
@@ -14,5 +14,5 @@ A = D + 19*C
 print('Initial matrix:\n', A)
 print('Eigenvalues:\n', linalg.eigvals(A))
 print('Eingvectors:\n', linalg.eig(A)[1])
-#solve_with_rotation(A)
+solve_with_rotation(A)
 power(A)
