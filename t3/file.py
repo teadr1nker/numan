@@ -14,5 +14,5 @@ A = D + 19*C
 print('Initial matrix:\n', A)
 print('Eigenvalues:\n', linalg.eigvals(A))
 print('Eingvectors:\n', linalg.eig(A)[1])
-solve_with_rotation(A)
+#solve_with_rotation(A)
 power(A)
