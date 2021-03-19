@@ -18,6 +18,10 @@ def c(i, j, A):
 def s(i, j, A):
     return math.cos(i, j, A)
 
+def t(i, j, A):
+    
+
+
 
 def power(A, N=50):
     y = [matrix([[1],[1],[1],[1]])]
