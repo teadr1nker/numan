@@ -55,7 +55,6 @@ def power(M, eps = 1e-4):
             else:
                 lamb = x_norm
                 x = x_1
-            N-=1
         eig.append(lamb)
 
         # Matrix Deflaction: M - Lambda * norm[V]*norm[V]^T
