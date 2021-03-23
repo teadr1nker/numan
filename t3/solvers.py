@@ -3,7 +3,7 @@ import numpy as np
 import math
 import numpy.linalg as la
 
-def get_max(M):
+def get_max(M): #get position of absolute max value above main diagonal
     m = 0.0
     res = (0, 0)
     for i in range(M.shape[0]):
@@ -12,8 +12,6 @@ def get_max(M):
                 m = abs(M[i, j])
                 res = (i, j)
     return res
-
-
 
 def f(i, j, M):
     if M[i, i] != M[j, j]:
@@ -37,26 +35,11 @@ def t(M):
         res -= M[i, i] ** 2
     return res
 
-
-#def power(M, N=50):
-#    y = [matrix([[1],[1],[1],[1]])]
-#
-#    for i in range(N):
-#        y1 = matmul(M,y[i])
-#        y.append(y1)
-#
-#    yn = y[len(y)-1]
-#    print('Power method eingvector:\n', yn / yn[yn.shape[0]-1])
-#
-#    lmb1 = y[N][0] / y[N-1][0]
-#    print(f'lmb = {lmb1}')
-
-
 def trans(v): # translates vector (v^T)
     v_1 = np.copy(v)
     return v_1.reshape((-1, 1))
 
-def power(M, eps = 1e-4, N = 50):
+def power(M, eps = 1e-4):
     eig = []
     Mc = np.copy(M)
     lamb = 0
