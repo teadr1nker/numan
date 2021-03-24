@@ -46,18 +46,17 @@ def power(M, eps = 1e-4):
     for i in range(4):
         x = np.array([1, 1, 1, 1])
         while True:
-            x_1 = np.dot(Mc, x) # y_n = M*x_(n-1)
+            x_1 = np.dot(Mc, x)
             x_norm = la.norm(x_1)
-            x_1 = x_1/x_norm # x_n = y_n/||y_n||
-            if(abs(lamb - x_norm).any() <= eps): # If precision is reached, it returns eigenvalue
-            #if(N <= 0):
+            x_1 = x_1/x_norm
+            if(abs(lamb - x_norm) <= eps): # If precision is reached, it returns eigenvalue
                 break
             else:
                 lamb = x_norm
                 x = x_1
         eig.append(lamb)
 
-        # Matrix Deflaction: M - Lambda * norm[V]*norm[V]^T
+        # Matrix Deflaction
         v = x_1/la.norm(x_1)
         R = v * trans(v)
         R = eig[i]*R

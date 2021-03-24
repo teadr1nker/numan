@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from numpy import array, diag, linalg, identity, matmul
+from numpy import array, diag, linalg, identity, matmul, around
 from solvers import *
 import numpy as np
 import sys
@@ -22,7 +22,7 @@ print('Eigenvalues:\n', linalg.eigvals(A))
 print('Eingvectors:\n', linalg.eig(A)[1])
 
 #rotation method
-N = 2 #Iterations
+N = 4 #Iterations
 V = identity(A.shape[0])
 U = identity(A.shape[0])
 Ar = A
@@ -37,9 +37,10 @@ for n in range(N):
     #print(U)
     Ar = matmul(matmul(U.T, Ar), U)
     V = matmul(V, U)
-    print(f'Iteration #{n+1}\ni = {i} j = {j}\nt = {round(t(Ar), 3)}\nA:\n{Ar}')
+    print(f'Iteration #{n+1}\ni = {i} j = {j}\nt = {round(t(Ar), 3)}\n'+
+    f'A:\n{around(Ar, 4)}')
 
 #power method
 print('Power method')
 eig, prs = power(A)
-print(f'Eigenvalues:\n{eig}\nPresision:\n{prs}')
+print(f'Eigenvalues:\n{eig}\nDeflaction:\n{prs}')
