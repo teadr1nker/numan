@@ -3,6 +3,26 @@ import numpy as np
 import math
 import numpy.linalg as la
 
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+def printbl(str):
+    print(f'{bcolors.OKBLUE}{str}{bcolors.ENDC}')
+
+def printh(str):
+    print(f'{bcolors.HEADER}{str}{bcolors.ENDC}')
+
+def printg(str):
+    print(f'{bcolors.OKGREEN}{str}{bcolors.ENDC}')
+
 def get_max(M): #get position of absolute max value above main diagonal
     m = 0.0
     res = (0, 0)
@@ -39,7 +59,7 @@ def trans(v): # translates vector (v^T)
     v_1 = np.copy(v)
     return v_1.reshape((-1, 1))
 
-def power(M, eps = 1e-4):
+def power(M, eps = 1e-8):
     eig = []
     Mc = np.copy(M)
     lamb = 0
@@ -49,8 +69,8 @@ def power(M, eps = 1e-4):
             x_1 = np.dot(Mc, x)
             x_norm = la.norm(x_1)
             x_1 = x_1/x_norm
-            if(abs(lamb - x_norm) <= eps): # If precision is reached, it returns eigenvalue
-                break
+            if(abs(lamb - x_norm) <= eps): # If precision is reached,
+                break                      # it returns eigenvalue
             else:
                 lamb = x_norm
                 x = x_1

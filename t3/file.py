@@ -5,7 +5,6 @@ from solvers import *
 import numpy as np
 import sys
 
-
 D = array([[1.342, 0.432, -0.599, 0.202],
             [0.432, 1.342, 0.256, -0.599],
             [-0.599, 0.256, 1.342, 0.532],
@@ -18,15 +17,16 @@ else:
     A = D
 
 print('Initial matrix:\n', A)
-print('Eigenvalues:\n', linalg.eigvals(A))
+printg(f'Eigenvalues:\n{linalg.eigvals(A)}')
 print('Eingvectors:\n', linalg.eig(A)[1])
 
 #rotation method
-N = 4 #Iterations
+N = 16 #Iterations
+printall = False #print all Iterations
 V = identity(A.shape[0])
 U = identity(A.shape[0])
 Ar = A
-print('Rotation method')
+printbl('Rotation method')
 for n in range(N):
     U = identity(Ar.shape[0])
     i, j = get_max(Ar)
@@ -34,13 +34,17 @@ for n in range(N):
     U[j, j] = c(i, j, Ar)
     U[i, j] = -s(i, j, Ar)
     U[j, i] = s(i, j, Ar)
-    #print(U)
     Ar = matmul(matmul(U.T, Ar), U)
     V = matmul(V, U)
-    print(f'Iteration #{n+1}\ni = {i} j = {j}\nt = {round(t(Ar), 3)}\n'+
-    f'A:\n{around(Ar, 4)}')
+    #print(f'V\n{V}')
+    if(n == N-1 or printall):
+        printh(f'Iteration #{n+1}')
+        print(f'i = {i} j = {j}\nt = {round(t(Ar), 9)}\n'+
+        f'A:\n{around(Ar, 4)}')
+        printg(f'A Diagonal: {Ar.diagonal()}')
 
 #power method
-print('Power method')
+printbl('Power method')
 eig, prs = power(A)
-print(f'Eigenvalues:\n{eig}\nDeflaction:\n{prs}')
+printg(f'Eigenvalues: {around(eig, 8)}')
+print(f'\nDeflaction:\n{prs}')
