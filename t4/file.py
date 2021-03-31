@@ -21,7 +21,7 @@ N = n[0]
 X = []
 for i in range(N):
     X.append(a + ((b-a)*i)/N)
-
+##1
 #L = sp.Sum(f.subs(x, X[k]) * sp.Product((t-X[i])/(X[k] - X[i]), (i, 0, N)), (k, 0, N))
 def L(t):
     res = 0.0
@@ -37,21 +37,36 @@ La = []
 for i in range(j):
     La.append(L(T[i]))
 
-p1 = sp.plot(f, show=False)
-p1.save('plot1.png')
+#p1 = sp.plot(f, show=False)
+#p1.save('plot11.png')
+
+F = []
+for t in T:
+    F.append(f.subs(x, t))
+
+plt.plot(T, F)
+plt.savefig('plot11.png')
 
 plt.clf()
-plt.plot(La)
-plt.savefig('plot2.png')
+plt.plot(T, La)
+plt.savefig('plot12.png')
 
+D = []
+for e, l in enumerate(La):
+    D.append(l - f.subs(x, T[e]))
 
+plt.clf()
+plt.plot(T, D)
+plt.savefig('plot13.png')
+
+##2
 V = []
 for r in range(N):
     V.append(math.cos(math.pi * ((1+2*r)/(2*(N+1)))))
 
 Z=[]
-for i in range(len(V)):
-    Z.append((a+b)/2 + ((b-a)/2)*V[i])
+for v in V:
+    Z.append((a+b)/2 + ((b-a)/2)*v)
 
 def LCH(t):
     res = 0.0
@@ -59,15 +74,24 @@ def LCH(t):
         mul = f.subs(x, Z[k])
         for i in range(N):
             if Z[k] - Z[i] != 0:
-                mul *= (t - Z[i]) / (Z[k] - X[i])
+                mul *= (t - Z[i]) / (Z[k] - Z[i])
         res += mul
     return res
-
 
 La = []
 for i in range(j):
     La.append(LCH(T[i]))
 
 plt.clf()
-plt.plot(La)
-plt.savefig('plot3.png')
+plt.plot(T ,La)
+plt.savefig('plot22.png')
+
+D = []
+for e, l in enumerate(La):
+    D.append(l - f.subs(x, T[e]))
+
+plt.clf()
+plt.plot(T, D)
+plt.savefig('plot23.png')
+
+##3
