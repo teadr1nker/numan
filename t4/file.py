@@ -39,6 +39,7 @@ for t in T:
 
 #p1 = sp.plot(f, show=False)
 #p1.save('plot11.png')
+printh('equidistant nodes')
 
 F = []
 for t in T:
@@ -46,21 +47,22 @@ for t in T:
 
 plt.plot(T, F)
 plt.savefig('plot11.png')
-printLink('plot11.png')
+#printLink('plot11.png')
 
 #plt.clf()
-plt.plot(T, La)
-plt.savefig('plot12.png')
-printLink('plot12.png')
+plt.plot(T, La, '.')
+plt.savefig('L_f.png', dpi = 200)
+printLink('L_f.png')
 D = []
 for e, l in enumerate(La):
     D.append(l - f.subs(x, T[e]))
 
 plt.clf()
 plt.plot(T, D)
-plt.savefig('plot13.png')
-printLink('plot13.png')
+plt.savefig('differenceL.png')
+printLink('differenceL.png')
 
+printh('error')
 error = []
 for ns in n:
     Xe = []
@@ -98,20 +100,21 @@ def LCH(t, Zl):
 La = []
 for t in T:
     La.append(LCH(t, Z))
-
+printh('Chebyshev nodes')
 plt.clf()
-plt.plot(T ,La)
-plt.savefig('plot22.png')
-printLink('plot22.png')
+plt.plot(T, F)
+plt.plot(T ,La, '.')
+plt.savefig('LCH_F.png', dpi=200)
+printLink('LCH_F.png')
 D = []
 for e, l in enumerate(La):
     D.append(l - f.subs(x, T[e]))
 
 plt.clf()
 plt.plot(T, D)
-plt.savefig('plot23.png')
-printLink('plot23.png')
-
+plt.savefig('differenceLCH.png')
+printLink('differenceLCH.png')
+printh('error')
 errorch = []
 for ns in n:
 
@@ -131,7 +134,7 @@ for ns in n:
 
     errorch.append(max(err))
 print(errorch)
-
+printh('error comparison')
 plt.clf()
 plt.plot(n, error)
 plt.plot(n, errorch)
@@ -140,6 +143,7 @@ printLink('error.png')
 
 
 ##3
+printh('Builtin interpolation')
 N = n[0]
 Xx = []
 for r in range(N):
