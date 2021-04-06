@@ -15,7 +15,7 @@ T = []
 for r in range(j):
     T.append(a + ((b-a)/j)*r)
 
-n = np.array([5, 10, 15, 20, 25, 30, 40, 50, 60])
+n = np.array([5, 10, 15, 20, 25])#, 30, 40, 50, 60])
 #print(f'T: {T}')
 N = n[0]
 X = []
@@ -23,19 +23,19 @@ for i in range(N):
     X.append(a + ((b-a)*i)/N)
 ##1
 #L = sp.Sum(f.subs(x, X[k]) * sp.Product((t-X[i])/(X[k] - X[i]), (i, 0, N)), (k, 0, N))
-def L(t):
+def L(t, Xl):
     res = 0.0
-    for k in range(N):
-        mul = f.subs(x, X[k])
-        for i in range(N):
-            if X[k] - X[i] != 0:
-                mul *= (t - X[i]) / (X[k] - X[i])
+    for k in range(len(Xl)):
+        mul = f.subs(x, Xl[k])
+        for i in range(len(Xl)):
+            if Xl[k] - Xl[i] != 0:
+                mul *= (t - Xl[i]) / (Xl[k] - Xl[i])
         res += mul
     return res
 
 La = []
-for i in range(j):
-    La.append(L(T[i]))
+for t in T:
+    La.append(L(t, X))
 
 #p1 = sp.plot(f, show=False)
 #p1.save('plot11.png')
@@ -46,11 +46,12 @@ for t in T:
 
 plt.plot(T, F)
 plt.savefig('plot11.png')
+printLink('plot11.png')
 
-plt.clf()
+#plt.clf()
 plt.plot(T, La)
 plt.savefig('plot12.png')
-
+printLink('plot12.png')
 D = []
 for e, l in enumerate(La):
     D.append(l - f.subs(x, T[e]))
@@ -58,34 +59,50 @@ for e, l in enumerate(La):
 plt.clf()
 plt.plot(T, D)
 plt.savefig('plot13.png')
+printLink('plot13.png')
+
+error = []
+for ns in n:
+    Xe = []
+    for i in range(ns):
+        Xe.append(a + ((b-a)*i)/ns)
+    print(f'N = {ns}', end = '\r')
+
+    err = []
+    for t in T:
+        err.append(abs(f.subs(x, t) - L(t, Xe)))
+
+    error.append(max(err))
+print(error)
+
 
 ##2
-V = []
-for r in range(N):
-    V.append(math.cos(math.pi * ((1+2*r)/(2*(N+1)))))
+#V = []
+#for r in range(N):
+#    V.append(math.cos(math.pi * ((1+2*r)/(2*(N+1)))))
 
 Z=[]
-for v in V:
-    Z.append((a+b)/2 + ((b-a)/2)*v)
+for r in range(N):
+    Z.append((a+b)/2 + ((b-a)/2)*(math.cos(math.pi * ((1+2*r)/(2*(N+1))))))
 
-def LCH(t):
+def LCH(t, Zl):
     res = 0.0
     for k in range(N):
-        mul = f.subs(x, Z[k])
+        mul = f.subs(x, Zl[k])
         for i in range(N):
-            if Z[k] - Z[i] != 0:
-                mul *= (t - Z[i]) / (Z[k] - Z[i])
+            if Zl[k] - Zl[i] != 0:
+                mul *= (t - Zl[i]) / (Zl[k] - Zl[i])
         res += mul
     return res
 
 La = []
-for i in range(j):
-    La.append(LCH(T[i]))
+for t in T:
+    La.append(LCH(t, Z))
 
 plt.clf()
 plt.plot(T ,La)
 plt.savefig('plot22.png')
-
+printLink('plot22.png')
 D = []
 for e, l in enumerate(La):
     D.append(l - f.subs(x, T[e]))
@@ -93,5 +110,53 @@ for e, l in enumerate(La):
 plt.clf()
 plt.plot(T, D)
 plt.savefig('plot23.png')
+printLink('plot23.png')
+
+errorch = []
+for ns in n:
+
+    Ve = []
+    for r in range(ns):
+        Ve.append(math.cos(math.pi * ((1+2*r)/(2*(ns+1)))))
+
+    Ze=[]
+    for ve in Ve:
+        Ze.append((a+b)/2 + ((b-a)/2)*ve)
+
+    print(f'N = {ns}', end = '\r')
+
+    err = []
+    for t in T:
+        err.append(abs(f.subs(x, t) - LCH(t, Ze)))
+
+    errorch.append(max(err))
+print(errorch)
+
+plt.clf()
+plt.plot(n, error)
+plt.plot(n, errorch)
+plt.savefig('error.png')
+printLink('error.png')
+
 
 ##3
+N = n[0]
+Xx = []
+for r in range(N):
+    Xx.append(a + ((b - a) *r)/N)
+
+yy = []
+for xx in Xx:
+    yy.append(f.subs(x, xx))
+
+LS = np.interp(
+np.array(T, dtype='float64'),
+np.array(Xx, dtype='float64'),
+np.array(yy, dtype='float64'))
+
+#print(LS)
+plt.clf()
+plt.plot(T, LS)
+plt.plot(Xx, yy, 'o')
+plt.savefig('interpolation.png')
+printLink('interpolation.png')
