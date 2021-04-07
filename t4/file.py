@@ -164,3 +164,26 @@ plt.plot(T, LS)
 plt.plot(Xx, yy, 'o')
 plt.savefig('interpolation.png')
 printLink('interpolation.png')
+
+printh('error')
+errorint = []
+for ns in n:
+    print(f'N = {ns}', end = '\r')
+    Xx = []
+    for r in range(ns):
+        Xx.append(a + ((b - a) *r)/N)
+
+    yy = []
+    for xx in Xx:
+        yy.append(f.subs(x, xx))
+
+    LS = np.interp(
+    np.array(T, dtype='float64'),
+    np.array(Xx, dtype='float64'),
+    np.array(yy, dtype='float64'))
+
+    err = []
+    for i, t in enumerate(T):
+        err.append(abs(f.subs(x, t) - LS[i]))
+    errorint.append(max(err))
+print(errorint)        
