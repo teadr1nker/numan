@@ -16,6 +16,7 @@ for r in range(j):
     T.append(a + ((b-a)/j)*r)
 
 n = np.array([5, 10, 15, 20, 25])#, 30, 40, 50, 60])
+#n = np.array([5, 10, 15, 20, 25, 30, 40, 50, 60])
 #print(f'T: {T}')
 N = n[0]
 X = []
@@ -26,7 +27,8 @@ for i in range(N):
 def L(t, Xl):
     res = 0.0
     for k in range(len(Xl)):
-        mul = f.subs(x, Xl[k])
+        # mul = f.subs(x, Xl[k])
+        mul = float(f.subs(x, Xl[k]))
         for i in range(len(Xl)):
             if Xl[k] - Xl[i] != 0:
                 mul *= (t - Xl[i]) / (Xl[k] - Xl[i])
@@ -46,7 +48,7 @@ for t in T:
     F.append(f.subs(x, t))
 
 plt.plot(T, F)
-plt.savefig('plot11.png')
+#plt.savefig('plot11.png')
 #printLink('plot11.png')
 
 #plt.clf()
@@ -55,14 +57,14 @@ plt.savefig('L_f.png', dpi = 200)
 printLink('L_f.png')
 D = []
 for e, l in enumerate(La):
-    D.append(l - f.subs(x, T[e]))
+    D.append(abs(l - f.subs(x, T[e])))
 
 plt.clf()
 plt.plot(T, D)
 plt.savefig('differenceL.png')
 printLink('differenceL.png')
 
-printh('error')
+printh('    error')
 error = []
 for ns in n:
     Xe = []
@@ -75,23 +77,23 @@ for ns in n:
         err.append(abs(f.subs(x, t) - L(t, Xe)))
 
     error.append(max(err))
-print(error)
+printbl(error)
 
 
 ##2
 #V = []
 #for r in range(N):
 #    V.append(math.cos(math.pi * ((1+2*r)/(2*(N+1)))))
-
+e
 Z=[]
 for r in range(N):
     Z.append((a+b)/2 + ((b-a)/2)*(math.cos(math.pi * ((1+2*r)/(2*(N+1))))))
 
 def LCH(t, Zl):
     res = 0.0
-    for k in range(N):
+    for k in range(len(Zl)):
         mul = f.subs(x, Zl[k])
-        for i in range(N):
+        for i in range(len(Zl)):
             if Zl[k] - Zl[i] != 0:
                 mul *= (t - Zl[i]) / (Zl[k] - Zl[i])
         res += mul
@@ -108,24 +110,26 @@ plt.savefig('LCH_F.png', dpi=200)
 printLink('LCH_F.png')
 D = []
 for e, l in enumerate(La):
-    D.append(l - f.subs(x, T[e]))
+    D.append(abs(l - f.subs(x, T[e])))
 
 plt.clf()
 plt.plot(T, D)
 plt.savefig('differenceLCH.png')
 printLink('differenceLCH.png')
-printh('error')
+printh('    error')
 errorch = []
 for ns in n:
 
-    Ve = []
-    for r in range(ns):
-        Ve.append(math.cos(math.pi * ((1+2*r)/(2*(ns+1)))))
+    #Ve = []
+    #for r in range(ns):
+        #Ve.append(math.cos(math.pi * ((1+2*r)/(2*(ns+1)))))
 
     Ze=[]
-    for ve in Ve:
-        Ze.append((a+b)/2 + ((b-a)/2)*ve)
+    #for ve in Ve:
+    #    Ze.append((a+b)/2 + ((b-a)/2)*ve)
 
+    for r in range(ns):
+        Ze.append((a+b)/2 + ((b-a)/2)*(math.cos(math.pi * ((1+2*r)/(2*(ns+1))))))
     print(f'N = {ns}', end = '\r')
 
     err = []
@@ -133,11 +137,15 @@ for ns in n:
         err.append(abs(f.subs(x, t) - LCH(t, Ze)))
 
     errorch.append(max(err))
-print(errorch)
+printbl(errorch)
+
 printh('error comparison')
 plt.clf()
 plt.plot(n, error)
 plt.plot(n, errorch)
+plt.legend(['L','LCH'])
+plt.yscale('log')
+plt.ylabel('L/LCH')
 plt.savefig('error.png')
 printLink('error.png')
 
@@ -165,7 +173,7 @@ plt.plot(Xx, yy, 'o')
 plt.savefig('interpolation.png')
 printLink('interpolation.png')
 
-printh('error')
+printh('    error')
 errorint = []
 for ns in n:
     print(f'N = {ns}', end = '\r')
@@ -186,4 +194,4 @@ for ns in n:
     for i, t in enumerate(T):
         err.append(abs(f.subs(x, t) - LS[i]))
     errorint.append(max(err))
-print(errorint)        
+printbl(errorint)

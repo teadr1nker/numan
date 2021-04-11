@@ -20,3 +20,7 @@ def printg(str):
 
 def printbo(str):
     print(f'{bcolors.BOLD}{str}{bcolors.ENDC}')
+
+import os
+def printLink(path):
+    print(f'file://{os.path.abspath(path)}')
