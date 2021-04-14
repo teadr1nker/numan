@@ -8,16 +8,15 @@ def trapezoidal(f, k, a, b):
     res = 0.0
     for n in range(N):
         res += (h/2) * (f.subs(x, a + n*h) + f.subs(x, a + h + n*h))
-
     return res
 
-X = [0.04691008, 0.23076534, 0.5, 0.76923466, 0.95308992]
-C = [0.11846344, 0.23931433 ,0.28444444 ,0.23931433 , 0.11846344]
+X = np.array([0.04691008, 0.23076534, 0.5, 0.76923466, 0.95308992])
+C = np.array([0.11846344, 0.23931433 ,0.28444444 ,0.23931433 , 0.11846344])
 M = len(X)
 
 def gauss5(f, a, b):
     res = 0.0
-    Z = np.array(X) * (b-a) + a
+    Z = X * (b-a) + a
     for i in range(M):
         res += C[i] * f.subs(x, Z[i])
     return (b-a) * res

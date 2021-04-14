@@ -23,6 +23,13 @@ for k in K:
     print(f'K = {k}: {tr}')
 J = np.array(J)
 
+import matplotlib.pyplot as plt
+plt.plot(K, J)
+plt.hlines(I, min(K), max(K), colors = 'r')
+plt.legend(['J', 'I'])
+plt.savefig('plot1.png', dpi = 200)
+printLink('plot1.png')
+
 Z = J - I
 printbo('Difference:')
 for i, z in enumerate(Z):
