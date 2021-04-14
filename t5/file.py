@@ -14,12 +14,12 @@ np.array(x, dtype='float64'),
 np.array(y, dtype='float64'))
 
 plt.plot(x, y, 'o')
+plt.plot(T, [approx(1, x, y, X) for X in T])
 plt.plot(T, [approx(2, x, y, X) for X in T])
+plt.plot(T, [approx(3, x, y, X) for X in T])
 plt.plot(T, [approx(4, x, y, X) for X in T])
-plt.plot(T, [approx(8, x, y, X) for X in T])
-plt.plot(T, [approx(16, x, y, X) for X in T])
 plt.plot(T, LS, '.')
-plt.legend(['y', 'a2', 'a4', 'a8', 'a16', 'LS'])
+plt.legend(['y', 'a1', 'a2', 'a3', 'a4', 'LS'])
 plt.savefig('Comparison.png', dpi = 300)
 printLink('Comparison.png')
 

@@ -21,7 +21,7 @@ def createB(n, x, y):
     for i in range(n+1):
         list.append([b(i, x, y)])
     return np.array(list)
-
+    
 def approx(n, x, y, X):
     a = np.linalg.solve(createA(n, x), createB(n, x, y))
     res = 0.0
@@ -35,7 +35,7 @@ def abserror(n, x, y):
 
 def rmserror(n, x, y):
         aprx = np.array([approx(n, x, y, X) for X in x])
-        return math.sqrt(sum([abs(y[i] - aprx[i])[0] for i in range(len(y))]))/len(aprx)
+        return math.sqrt(sum([abs(y[i]-aprx[i])[0] for i in range(len(y))]))/len(aprx)
 
 ################################################################################
 #
