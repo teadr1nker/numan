@@ -15,33 +15,31 @@ print(f'I = sympy.integrate(f, (x, a, b)) = {I}')
 
 K = np.arange(1, 11, 1)
 #print(K)
+printh('Trapezoidal method:')
 J = []
 for k in K:
-    print(f'k = {k}', end = '\r')
-    J.append(trapezoidal(f, k, a, b))
+    tr = trapezoidal(f, k, a, b)
+    J.append(tr)
+    print(f'K = {k}: {tr}')
 J = np.array(J)
 
-printh('Trapezoidal method:')
-print(J)
 Z = J - I
 printbo('Difference:')
-print(Z)
-
+for i, z in enumerate(Z):
+    print(f'K = {K[i]}: {z}')
+printbo('Error J_i - J_i-1:')
 R = []
 for i in range(len(J)-1):
-    R.append(abs(J[i+1] - J[i])/3)
+    e = (J[i+1] - J[i])/3
+    R.append(e)
+    print(f'{e}')
+
 R = np.array(R)
 
-printbo('Error J_i - J_i-1:')
-print(R)
 
-Rk = []
+printbo('Error R_k - 1/R_k:')
 for i in range(len(R)-1):
-    Rk.append(R[i]/R[i+1])
-Rk = np.array(Rk)
-
-printbo('Error R_k-1/R_k:')
-print(Rk)
+    print(R[i]/R[i+1])
 
 G = gauss5(f, a, b)
 printh('Gauss method')
