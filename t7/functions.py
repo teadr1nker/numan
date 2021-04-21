@@ -1,8 +1,8 @@
-# RK-4 method python program
-
 # function to be solved
+import math
+#F = ((2 * sym.sqrt(u)) / t) - 1
 def f(x,y):
-    return x+y
+    return ((2 * math.sqrt(y)) / x) - 1
 
 # or
 # f = lambda x: x+y
@@ -13,10 +13,10 @@ def rk4(x0,y0,xn,n):
     # Calculating step size
     h = (xn-x0)/n
 
-    print('\n--------SOLUTION--------')
-    print('-------------------------')
-    print('x0\ty0\tyn')
-    print('-------------------------')
+    #print('\n--------SOLUTION--------')
+    #print('-------------------------')
+    #print('x0\ty0\tyn')
+    #print('-------------------------')
     for i in range(n):
         k1 = h * (f(x0, y0))
         k2 = h * (f((x0+h/2), (y0+k1/2)))
@@ -29,7 +29,7 @@ def rk4(x0,y0,xn,n):
         y0 = yn
         x0 = x0+h
 
-    print('\nAt x=%.4f, y=%.4f' %(xn,yn))
+    print('At x=%.4f, y=%.4f' %(xn,yn))
 
 ################################################################################
 #
