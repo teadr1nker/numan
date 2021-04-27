@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 from sympy.abc import u, t
 from functions import *
 
+import os
+os.environ['QT_LOGGING_RULES'] = "qt5ct.debug=false"   #suppress qt5ct debugging
+
 F = ((2 * sym.sqrt(u)) / t) - 1
 #F = u**2 /(t+1)
 #X0 = 0.5
@@ -15,6 +18,8 @@ N = 5000
 h = (b-a)/N
 U = [U0]
 T = np.linspace(a, b, N)
+
+printh('Eulers method')
 
 for i in range(N-1):
     U.append(float(U[i] + h * F.subs([(t, T[i]), (u, U[i])])))
@@ -28,17 +33,20 @@ for i in range(N-1):
 
 #e = max([abs(U[i] - Y[i*2]) for i in range(len(U))])
 
-print(f'Error: {abs(U[-1] - U[-2] / 3)}')
 print(f'Result: {U[-1]}')
+print(f'Error: {abs(U[-1] - U[-2] / 3)}')
 
 plt.plot(np.linspace(a, b, N), U)
-plt.savefig('plot1.png', dpi = 200)
-printLink('plot1.png')
+plt.savefig('Euler.png', dpi = 200)
+printLink('Euler.png')
 
 N = 200
 h = (b-a)/N
 T = np.array([a + k * h for k in range(N)])
 X = [U0]
+
+printh('Cauchy–Euler method')
+
 for i in range(N-1):
     X.append(float(X[i] + (h/2)*(F.subs([(t, T[i]), (u, X[i])]) +
     F.subs([(t, T[i]), (u, X[i] + h * F.subs([(t, T[i]), (u, X[i])]))]))))
@@ -46,7 +54,20 @@ for i in range(N-1):
 print(f'Result: {X[-1]}')
 plt.clf()
 plt.plot(np.linspace(a, b, N), X)
-plt.savefig('plot2.png', dpi = 200)
-printLink('plot2.png')
+plt.savefig('Cauchy-Euler.png', dpi = 200)
+printLink('Cauchy-Euler.png')
 
-rk4(a, U0, b, N)
+printh('Runge Kutta Fourth Order (RK4) Method')
+
+W, yn = rk4(a, U0, b, N)
+print(f'Result: {yn}')
+
+plt.clf()
+plt.plot(np.linspace(a, b, N), W)
+plt.savefig('RK4.png', dpi = 200)
+printLink('RK4.png')
+
+plt.clf()
+plt.plot(np.linspace(a, b, N), abs(X - W))
+plt.savefig('Difference.png', dpi = 200)
+printLink('Difference.png')

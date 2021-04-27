@@ -1,3 +1,4 @@
+import numpy as np
 # function to be solved
 import math
 #F = ((2 * sym.sqrt(u)) / t) - 1
@@ -9,7 +10,7 @@ def f(x,y):
 
 # RK-4 method
 def rk4(x0,y0,xn,n):
-
+    '''Runge Kutta Fourth Order (RK4) Method'''
     # Calculating step size
     h = (xn-x0)/n
 
@@ -17,6 +18,7 @@ def rk4(x0,y0,xn,n):
     #print('-------------------------')
     #print('x0\ty0\tyn')
     #print('-------------------------')
+    res = np.full(n, 0.0)
     for i in range(n):
         k1 = h * (f(x0, y0))
         k2 = h * (f((x0+h/2), (y0+k1/2)))
@@ -24,19 +26,21 @@ def rk4(x0,y0,xn,n):
         k4 = h * (f((x0+h), (y0+k3)))
         k = (k1+2*k2+2*k3+k4)/6
         yn = y0 + k
+        res[i] = yn
         #print('%.4f\t%.4f\t%.4f'% (x0,y0,yn) )
         #print('-------------------------')
         y0 = yn
         x0 = x0+h
 
-    print('At x=%.4f, y=%.4f' %(xn,yn))
+    #print('At x=%.4f, y=%.4f' %(xn,yn))
+    return (res, yn)
 
 ################################################################################
-#
-#
-#
-#
-#
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
 ################################################################################
 
 class bcolors:
@@ -64,4 +68,4 @@ def printbo(str):
 
 import os
 def printLink(str):
-    os.system(f'echo \'\e]8;;file://{os.getcwd()}/{str}\aOpen {str}\e]8;;\a\'')
+    os.system(f'echo \'\e]8;;file://{os.path.abspath(str)}\aOpen {str}\e]8;;\a\'')
