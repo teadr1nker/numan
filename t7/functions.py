@@ -1,12 +1,10 @@
 import numpy as np
-# function to be solved
+
 import math
+#function to be solved
 #F = ((2 * sym.sqrt(u)) / t) - 1
 def f(x,y):
     return ((2 * math.sqrt(y)) / x) - 1
-
-# or
-# f = lambda x: x+y
 
 # RK-4 method
 def rk4(x0,y0,xn,n):
