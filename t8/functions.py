@@ -5,7 +5,7 @@ def tridiagonal(p, q, f, N, a, b, m1, m2):
     X = np.linspace(a, b, N)
     B = np.full(N, 1)
     A = np.array([1 - p(x) * h for x in X])
-    C = np.array([2 - p(x) * h - q(x) * (h**2) for x in X])
+    C = np.array([2 - p(x) * h + q(x) * (h**2) for x in X])
     G = np.array([-f(x) for x in X])
     alpha = [0]
     beta = [m1]
@@ -17,7 +17,7 @@ def tridiagonal(p, q, f, N, a, b, m1, m2):
     for i in range(N-1):
         Y.append(alpha[N-1-i]* Y[i] + beta[N-1-i])
     Y[-1] = m1
-    
+
     return np.flip(np.array(Y))
 
 ################################################################################
