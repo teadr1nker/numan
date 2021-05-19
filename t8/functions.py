@@ -9,13 +9,19 @@ def tridiagonal(p, q, f, N, a, b, m1, m2):
     G = np.array([-f(x) for x in X])
     alpha = [0]
     beta = [m1]
-    for i in range(N-1):
-        alpha.append(B[i+1]/(C[i+1] - A[i+1] * alpha[i]))
-        beta.append(((h**2)*G[i+1] + A[i+1]*beta[i]) / (C[i+1] - A[i+1]*alpha[i]))
+    N-=1
+    #for i in range(N-1):
+    #    alpha.append(B[i, -1+1]/(C[i+1] - A[i+1] * alpha[i]))
+    #    beta.append(((h**2)*G[i+1] + A[i+1]*beta[i]) / (C[i+1] - A[i+1]*alpha[i]))
+    for i in range(N):
+        alpha.append(B[i]/(C[i] - A[i] * alpha[i]))
+        beta.append(((h**2)*G[i] + A[i]*beta[i]) / (C[i] - A[i]*alpha[i]))
 
     Y = [m2]
-    for i in range(N-1):
-        Y.append(alpha[N-1-i]* Y[i] + beta[N-1-i])
+#    for i in range(N-1):
+#        Y.append(alpha[N-1-i]* Y[i] + beta[N-1-i])
+    for i in range(N):
+        Y.append(alpha[N-i]* Y[i] + beta[N-i])
     Y[-1] = m1
 
     return np.flip(np.array(Y))

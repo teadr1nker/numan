@@ -18,7 +18,7 @@ def f(x):
 
 printh('Tridiagonal method')
 
-N = 1000
+N = 2000
 a = 0
 b = 0.5
 #b = 2
@@ -40,17 +40,18 @@ plt.plot(error)
 plt.savefig('error.png')
 printLink('error.png')
 
+#quit(0)
 printh('scipy odeint()')
 
 def F(u, x):
-    return (u[1] ,- u[1] * p(x) + u[0] * q(x) + f(x))
+        return (u[1] , -u[1] * p(x) + u[0] * q(x) + f(x))
 
 y0 = [m1, m1]
 xs = np.linspace(a, b, N)
 us = odeint(F, y0, xs)
 
 plt.clf()
-plt.plot(xs, us[:,0])
+plt.plot(xs, us)
 plt.savefig('odeint.png')
 printLink('odeint.png')
 
