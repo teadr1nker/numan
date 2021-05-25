@@ -21,7 +21,7 @@ def T2(tt):
 
 printh('Differential method')
 L = 2
-n = 50
+n = 10
 te = 1
 dt = 0.01
 
@@ -37,7 +37,7 @@ printLink('HE.png')
 
 printh('Error')
 
-Y2, _, x2 = solve(L, n * 2, te, dt / 2, p, f, u0, T1, T2)
+Y2, _, x2 = solve(L, n, te, dt / 2, p, f, u0, T1, T2)
 plt.clf()
 plt.plot(x2, Y2[n])
 plt.plot(x2, Y2[-1])
@@ -49,7 +49,7 @@ printLink('HE2.png')
 error = 0.0
 m = int(te/(dt/2))
 for i in range(n):
-    err = abs(Y1[-1, i] - Y2[-1, i*2])
+    err = abs(Y1[-1, i] - Y2[-1, i])
     if err > error:
         error = err
 

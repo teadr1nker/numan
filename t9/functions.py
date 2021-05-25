@@ -6,7 +6,7 @@ def slideshow(arr, x, t, L, te):
         plt.clf()
         plt.plot(x, a)
         #plt.xlim((0, L))
-        plt.ylim((1, 6))
+        plt.ylim((0, 5))
         plt.xlabel('Dist')
         plt.ylabel('Temp')
         plt.title(f'Heat equation Time: {round(t[i], 5)}')
@@ -32,7 +32,7 @@ def solve(L, n, te, dt, p, f, u0, T1, T2):
     Y[:,-1] = [T2(T) for T in t]
     for j in range(0, m-1):
         for i in range(1, n-1):
-            Y[j+1,i] = Y[j,i]+p(x[i])*(dt/dx)*(Y[j,i+1]-2*Y[j,i]+Y[j, i-1])\
+            Y[j+1,i] = Y[j,i]+p(x[i])*(dt/(dx**2))*(Y[j,i+1]-2*Y[j,i]+Y[j, i-1])\
             +f(t[j], x[i])*dt
 
     return (Y, t, x)
@@ -48,7 +48,7 @@ def solveTurb(L, n, te, dt, p, f, u0, T1, T2):
     Y[0] = [u0(X) for X in x]
     for j in range(0, m-1):
         for i in range(1, n-1):
-            Y[j+1,i] = Y[j, i]+p(x[i])*(dt/dx)*(Y[j,i+1]-2*Y[j,i]+Y[j, i-1])\
+            Y[j+1,i] = Y[j, i]+p(x[i])*(dt/dx**2)*(Y[j,i+1]-2*Y[j,i]+Y[j, i-1])\
             +f(t[j], x[i])*dt
 
     return (Y, t, x)
