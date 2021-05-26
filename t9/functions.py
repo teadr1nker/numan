@@ -11,9 +11,9 @@ def slideshow(arr, x, t, L, te):
         plt.ylabel('Temp')
         plt.title(f'Heat equation Time: {round(t[i], 5)}')
         plt.savefig('tmp_%04d.png' % i)
-        print(f'Time: {t[i]}', end='\r')
+        print(f'Time: {round(t[i], 4)}', end='\r')
         #print(a)
-    printg('Ready                                            ')
+    printg('Ready                      ')
     os.system('rm video.mp4')
     os.system('ffmpeg -hide_banner -loglevel error -r 15 -i tmp_%04d.png -c:v \
     libx264 -vf fps=30 -pix_fmt yuv420p video.mp4')
