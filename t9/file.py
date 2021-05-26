@@ -43,7 +43,7 @@ plt.plot(x2, Y2[n])
 plt.plot(x2, Y2[-1])
 plt.plot(x2, Y2[0])
 plt.legend(['/2','-1','0'])
-plt.title('Heat equation (2n, dt/2)')
+plt.title('Heat equation (n, dt/2)')
 plt.savefig('HE2.png')
 printLink('HE2.png')
 error = 0.0
